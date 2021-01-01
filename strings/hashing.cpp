@@ -16,7 +16,7 @@ T get_base(T first, T last)
 }
 
 // get hash of string in 1 based vector
-// be careful of input consisting of A-Z or 1-9
+// be careful of input consisting of A-Z or 0-9
 template <typename T>
 vector <T> get_hash(string str, const T mod, const T base)
 {
@@ -31,6 +31,7 @@ vector <T> get_hash(string str, const T mod, const T base)
 
 // binary exponentiation
 // useful in cases like checking substrings: (str[i] - str[i - m] + mod) % mod == pat[m] * power(base, i - m, mod) % mod
+// be careful of time limit and if O(nlogn) doesnt work, store power from get_hash()
 template <typename T>
 T power(T x, T y, const T mod)
 {
