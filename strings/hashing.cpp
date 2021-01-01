@@ -30,7 +30,7 @@ vector <T> get_hash(string str, const T mod, const T base)
 }
 
 // binary exponentiation
-// useful in cases like: (str[i] - str[i - m] + mod) % mod == pat[m] * power(base, i - m, mod) % mod
+// useful in cases like checking substrings: (str[i] - str[i - m] + mod) % mod == pat[m] * power(base, i - m, mod) % mod
 template <typename T>
 T power(T x, T y, const T mod)
 {
