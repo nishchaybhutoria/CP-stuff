@@ -4,6 +4,7 @@ Commonly used primes:
 1e9+9
 998244353
 */
+
 // return odd base in [first, last]
 template <typename T>
 T get_base(T first, T last)
