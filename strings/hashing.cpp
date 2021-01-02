@@ -33,18 +33,4 @@ struct string_hash {
     T get_power(T n) {
         return powers[n];
     }
-
-    // binary exponentiation
-    // useful in cases like checking substrings: (str[i] - str[i - m] + mod) % mod == pat[m] * power(base, i - m, mod) % mod
-    // be careful of time limit and if O(nlogn) doesnt work, store power from get_hash()
-    T power(T x, T y, const T mod) {
-        T res = 1;
-        while (y)
-        {
-            if (y & 1) res = res * x % mod;
-            x = x * x % mod;
-            y >>= 1;
-        }
-        return res;
-    }
 };
