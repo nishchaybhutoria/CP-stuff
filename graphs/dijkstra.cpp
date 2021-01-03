@@ -7,14 +7,14 @@ void dijkstra(T src, vector <T>& d, vector <T>& p)
     q.emplace(make_pair(0, src));
     while (!q.empty())
     {
-        T u = q.top().S;
-        T du = q.top().F;
+        T u = q.top().second;
+        T du = q.top().first;
         q.pop();
         if (du != d[u]) continue;
         for (auto edge : adj[u])
         {
-            T v = edge.F;
-            T dv = edge.S;
+            T v = edge.first;
+            T dv = edge.second;
             if (d[u] + dv < d[v])
             {
                 d[v] = d[u] + dv;
