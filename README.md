@@ -1,1 +1,1 @@
-# Some stuff for competitive programming
+# Codes for what I use
