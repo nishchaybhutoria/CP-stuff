@@ -1,7 +1,4 @@
 struct UFDS {
-    // Uses path compression
-    // UFDS U(n);
-    
     std::vector <int> sz, par;
 
     UFDS (int N) {
