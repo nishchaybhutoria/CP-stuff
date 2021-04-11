@@ -24,6 +24,7 @@ struct Matrix {
                 long long temp = 0;
                 for (int k = 0; k < cols; ++k) {
                     temp += (mat[i][k] * 1LL * other.mat[k][j]);
+                    assert(temp >= 0); // negative mod
                     // if (temp >= MOD) temp %= MOD;
                 }
                 res[i][j] = temp;
