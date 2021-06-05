@@ -1,5 +1,5 @@
 // Check the values of N and MOD
-// Use brackets properly and don't forgot long long
+// Use brackets properly and don't forget long long
 
 using ll = long long;
 
