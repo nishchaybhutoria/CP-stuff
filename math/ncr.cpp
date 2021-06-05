@@ -8,8 +8,6 @@ const ll N = 1e6;
 
 ll fact[N + 1], inv[N + 1];
 
-ll fact[N + 1], inv[N + 1];
-
 ll power(ll x, ll y = MOD - 2) {
     ll res = 1ll;
     while (y) {
