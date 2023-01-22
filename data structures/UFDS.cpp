@@ -12,18 +12,14 @@ struct UFDS {
     }
 
     bool same_set(int x, int y) {
-        return (get(x) == get(y));
+        return get(x) == get(y);
     }
 
     void unite(int x, int y) {
         x = get(x), y = get(y);
         if (x == y) return;
-        if (sz[x] > sz[y]) std::swap(x, y);
-        par[x] = y;
-        sz[y] += sz[x];
-    }
-
-    int get_size(int x) {
-        return sz[get(x)];
+        if (sz[x] < sz[y]) std::swap(x, y);
+        par[y] = x;
+        sz[x] += sz[y];
     }
 };
