@@ -1,43 +1,72 @@
-const int mxn = 2e5+1, mxk = 19;
-vector <ll> adj[mxn], dep(mxn);
-vector <vector <int>> par(mxn, vector <int> (mxk, -1));
- 
-void dfs(int u, int p, int d)
-{
-    par[u][0] = p;
-    dep[u] = d;
-    for (int i = 1; i < mxk; ++i)
-    {
-        int t = par[u][i-1];
-        if (t == -1) continue;
-        par[u][i] = par[t][i-1];
+#include <bits/stdc++.h>
+
+using namespace std;
+
+inline void solve() {
+    int n, q;
+    cin >> n >> q;
+    vector <int> adj[n + 1], dep(n + 1);
+    const int lg = 21;
+    vector <vector <int>> up(lg, vector <int> (n + 1));
+    for (int u = 2; u <= n; ++u) {
+        int v;
+        cin >> v;
+        adj[u].emplace_back(v);
+        adj[v].emplace_back(u);
+        up[0][u] = v;
     }
-    for (int v : adj[u])
-        if (v != p)
-            dfs(v, u, d+1);
-}
- 
-int kthpar(int n, int k)
-{
-    for (int i = 0; i < mxk; ++i)
-        if (k & (1 << i))
-            n = par[n][i];
-    return n;
-}
- 
-int lca(int a, int b)
-{
-    if (dep[a] > dep[b]) a = kthpar(a, dep[a]-dep[b]);
-    else if (dep[b] > dep[a]) b = kthpar(b, dep[b]-dep[a]);
-    if (a == b) return a;
-    for (int i = mxk-1; i >= 0; --i)
-    {
-        if (par[a][i] != par[b][i])
-        {
-            a = par[a][i];
-            b = par[b][i];
+    function <void(int, int, int)> dfs = [&](int u, int p, int d) {
+        dep[u] = d;
+        for (int v : adj[u]) {
+            if (v != p) {
+                for (int i = 1; i < lg; ++i) {
+                    up[i][v] = up[i - 1][up[i - 1][v]];
+                }
+                dfs(v, u, d + 1);
+            }
         }
+    };
+    dfs(1, 0, 1);
+    function <int(int, int)> kthpar = [&](int u, int k) {
+        int v = u;
+        for (int i = 0; i < lg; ++i) {
+            if (k & (1 << i)) {
+                v = up[i][v];
+            }
+        }
+        return v;
+    };
+    function <int(int, int)> lca = [&](int u, int v) {
+        if (dep[u] > dep[v]) {
+            swap(u, v);
+        }
+        if (dep[u] != dep[v]) {
+            v = kthpar(v, dep[v] - dep[u]);
+        }
+        if (u == v) {
+            return u;
+        }
+        for (int i = lg - 1; ~i; --i) {
+            if (up[i][u] != up[i][v]) {
+                u = up[i][u];
+                v = up[i][v];
+            }
+        }
+        return up[0][u];
+    };
+    while (q--) {
+        int a, b;
+        cin >> a >> b;
+        cout << lca(a, b) << '\n';
     }
-    return par[a][0];
 }
- 
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int tests = 1;
+    // cin >> tests;
+    for (int _ = 0; _ < tests; ++_) {
+        solve();
+    }
+}
